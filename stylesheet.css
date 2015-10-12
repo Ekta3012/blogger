@@ -1,0 +1,28 @@
+body{
+			background-image: url('background.jpg');
+			margin: 0px;
+		}
+#header{
+	height: 100px;
+	background-color: #8B4513;
+	line-height: 60px;
+	background-color: #00CED1;
+	opacity: 0.8;
+	text-align: center;
+}
+button{
+	background-color:#F08080; 
+	width:200px;
+	height:50px; 
+	color:#B22222; 
+	text-decoration:bold;
+	font-size:25px;
+}
+.header_img{
+	border-radius:40px; 
+	width:60px; 
+	margin-top:15px; 
+	height:60px; 
+	float:right; 
+	margin-right:50px;
+}
