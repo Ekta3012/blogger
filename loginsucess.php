@@ -9,7 +9,7 @@
 		require 'connect.php';
 		$email=$_POST['email'];
 		$password=$_POST['password'];
-		$sql="SELECT username,email,password FROM forminfo";
+		$sql="SELECT * FROM forminfo";
 		$result = mysqli_query($conn,$sql);
 		session_start();
 		$_SESSION['mail']=$_POST['email'];
@@ -28,9 +28,11 @@
 				$user = $sql_row['username'];
 				$mailid = $sql_row['email'];
 				$pass = $sql_row['password'];
+				$userid=$sql_row['userid'];
 				//echo $user .'id is'.$mailid.'<br>';
 				if($email==$sql_row['email'])
 				{	
+					$_SESSION['userid']=$userid;
 					if($email==$mailid && $password==$pass)
 					{
 						session_start();

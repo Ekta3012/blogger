@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div id="header">
-		<p style="display:inline; font-size:60px; color:#fff; text-decoration:bold; margin-left:30px; font-family:Broadway;">
+		<p style="display:inline; font-size:60px; color:#03a9f4; text-decoration:bold; margin-left:30px; font-family:Broadway;">
 		Blogger - Posts</p>
 		<a href="logout.php">
 		<p style="float:right; margin-right:50px; font-size:30px; color:black;">Log out</p></a>
@@ -37,7 +37,7 @@
 		require 'connect.php';
 		$username=$_SESSION['user_name'];
 		$b_id=$_POST['id1'];
-		$sql = "SELECT posttitle,post,d_o_post,username,blog_id FROM postinfo /*WHERE username='$username'*/";
+		$sql = "SELECT * FROM postinfo /*WHERE username='$username'*/";
 		$result=mysqli_query($conn,$sql);
 		if(!$result){
 			echo "failed";
@@ -60,8 +60,9 @@
 						if($user_name==$username)
 						{	if($b_id==$blogid)    //displays the post of the blog on which you click.
 							{
+								$time=$sql_row['time'];
 							echo '<div id="posts" style="width:80%; height:100%;">
-									<span style="text-decoration:bold; font-size:30px;">'. $posttitle.'<span style="font-size:15px; margin-left:10px;">'.$dateofpost.'</span></span><br>
+									<span style="text-decoration:bold; font-size:30px;">'. $posttitle.'<span style="font-size:15px; margin-left:10px;">'.$dateofpost.'&nbsp &nbsp'.$time.'</span></span><br>
 									<span style="font-size:20px;">'. $post.'</span></div>';
 							echo'<br><br>';
 								

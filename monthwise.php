@@ -2,16 +2,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Blogs</title>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	<style>
 		#content{
 			background-color:#FFF0F5; 
 			opacity:0.7; 
 			width:92%; 
-			height:100%;
 			margin-left:108px;
-			padding-bottom:20px;
+			padding:20px;
+			}
+			.comment{
+			margin-left: 100px;
+			margin-top: 5px;
+			font-size: 20px;
 		}
 	</style>
 </head>
@@ -31,35 +35,73 @@
 		?>
 </div>
 <div id="content">
+		
 		<?php 
 			require 'connect.php';
 			$month=$_POST['month'];
 			$date=date_parse($month); // converts month string into integer form.
-			var_dump($date['month']);
-			$sql="SELECT blogtitle,username,d_o_blog FROM bloginfo";
+			//var_dump($date['month']);
+			$sql="SELECT blogtitle,username,m_o_blog,blog_id FROM bloginfo";
 			$query=mysqli_query($conn,$sql);
-			if(!$query){
+			if(!$query)
+			{
 				echo "failed";
 			}
-			else{
-				echo "sucess";
+			else
+			{
+				//echo "sucess";
 			}
 			$sql_run=mysqli_query($conn,$sql);
-			if(mysqli_num_rows($sql_run)>0){
+			if(mysqli_num_rows($sql_run)>0)
+			{
 				while($sql_row=mysqli_fetch_assoc($sql_run))
 				{
 					$blogtitle=$sql_row['blogtitle'];
 					$username=$sql_row['username'];
-					$dateofblog=$sql_row['d_o_blog'];
-					//$month_s=DATE_FORMAT($dateofblog,'%c');
-					$month_s= date('M',$dateofblog);
-					if($date==$month_s)
+					$monthofblog=$sql_row['m_o_blog'];
+					//echo "sucess";
+					$blogid=$sql_row['blog_id'];
+					if($date['month'] == $monthofblog)
 					{
-					echo $blogtitle.'<br>'.$username;
+						$mysql="SELECT blog_id,posttitle,post FROM postinfo";
+						$query1=mysqli_query($conn,$mysql);
+						if(!$query1)
+						{
+							echo "failed";
+						}
+						else
+						{
+						echo $blogtitle.'<br>'.$username.'<br>';
+						$mysql_run=mysqli_query($conn,$mysql);
+						if(mysqli_num_rows($mysql_run)>0)
+						{
+							while($mysql_row=mysqli_fetch_assoc($mysql_run))
+							{
+								$b_id=$mysql_row['blog_id'];
+								$post=$mysql_row['post'];
+								$posttitle=$mysql_row['posttitle'];
+								if($b_id==$blogid)
+								{
+									echo '<p style="color:blue;">'.$posttitle.'<br>'.$post.'<br></p>';
+									echo '<button onclick="likes();" id="like" name="likes" style="margin-left:100px; width:90px; height:30px; line-height:20px; font-size:20px;">Like</button>
+											<form method="post" action="likecommentinsert.php" style="display:inline;">
+											<button value="'.$posttitle.'" name="id2" style="width:100px; height:30px; line-height:20px; font-size:20px;">Comment</button>
+											<div class="comment">
+												<textarea placeholder="Enter your comment...." rows="5" cols="50" id="'.$posttitle.'" name="comment">
+												</textarea>
+												</div>
+											</form>';
+								}
+							}
+						}
 					}
+
+
 				}
 			}
-		?>
+		}
+
+	?>
 </div>
 </body>
 </html>

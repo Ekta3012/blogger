@@ -13,30 +13,28 @@
 			float: left;
 			margin-left: 100px;
 			width:1247px;
-			height: 600px;
 			margin-top: 0px;
 		}
-		header{
+		#blogs{
 			font-size: 30px;
-			height: 25%;
+			/*height: 25%;*/
 		}
 		#sideright{
 			font-size: 35px;
 			float: right;
-			margin-right: 100px;
-			height: 500px;
+			margin-right: 35px;
 			margin-top: 30px;
 		}
 		#sideleft{
 			float: left;
 			margin-left: 10px;
-			height: 500px;
 			margin-top: 30px;
 		}
 		.info{
 			font-size: 30px;
 			color: blue;
 			display: inline;
+
 		}
 		ul{
 			list-style: none;
@@ -50,7 +48,7 @@
 <body>
 <?php 
 		require 'connect.php';
-		$sql="SELECT email,industry,occupation,location,about_me,interest,other_id,profile_img FROM profileinfo";
+		$sql="SELECT * FROM profileinfo";
 		$result=mysqli_query($conn,$sql);
 		if(!$result)
 		{
@@ -70,6 +68,7 @@
 						$mail_id=$sql_row['email'];
 						if($_SESSION['mail']==$mail_id)
 						{
+							$gender=$sql_row['gender'];
 							$industry = $sql_row['industry'];
 							$occupation = $sql_row['occupation'];
 							$location = $sql_row['location'];
@@ -83,12 +82,12 @@
 			}
 	?>
 <div id="header">
-	<p style="display:inline; font-size:60px; color:#fff; text-decoration:bold; margin-left:30px; font-family:Broadway;">
+	<p style="display:inline; font-size:60px; color:#03a9f4; text-decoration:bold; margin-left:30px; font-family:Broadway;">
 	Blogger - Profile</p>
 	<a href="logout.php">
 	<p style="float:right; margin-right:50px; font-size:30px; color:black;">Log out</p></a>
 	<a href="home.php">
-	<p style="float:right; margin-right:100px; font-size:30px; color:black;">Home</p></a>
+	<p style="float:right; margin-right:100px; font-size:30px; color:black;"><img src="home.png" width="50px" height="50px"></p></a>
 	<img src="<?php echo $profileimg;?>" class="header_img">
 	<a href="dashboard.php"><p style="float:right; margin-right:20px; display:inline; font-size:30px; color:black;">
 	<?php 
@@ -98,9 +97,9 @@
 <div id="profile">
 	<div id="blogging" style="margin-top:15px;">
 		<a href="dashboard.php">
-		<button style="background-color:#F08080; width:150px; margin-left:50px; height:50px; font-size:20px; color:#B22222; text-decoration:bold;">Start blogging</button>
+		<button style="width:150px; margin-left:50px; height:50px; font-size:20px; text-decoration:bold;">Start blogging</button>
 		<a href="editprofile.php" style="color:black;">
-		<button style="margin-right:10px; display:inline; float:right; text-decoration:bold; font-size:20px; background-color:#F08080; width:150px; height:50px; color:#B22222;">
+		<button style="margin-right:10px; display:inline; float:right; text-decoration:bold; font-size:20px; width:150px; height:50px;">
 		Edit Profile</button>
 		</a>
 	</div>
@@ -130,7 +129,7 @@
 		</ul>
 	</div>
 	<div id="sideright">
-		<header>My Blogs<br>
+		<div id="blogs"><header>My Blogs</header><br>
 				<?php 
 				$sql_blogs="SELECT blogtitle,username FROM bloginfo";
 				$query=mysqli_query($conn,$sql_blogs);
@@ -151,13 +150,16 @@
 						}
 					}
 				?>
-		</header><br><br>
-		industry :<p class="info"><?php echo $industry; ?></p><br>
-		occupation:<p class="info"><?php echo $occupation; ?></p><br>
-		location: <p class="info"><?php echo $location; ?></p><br>
-		few lines about me: <p class="info"><?php echo $abt_me; ?></p><br>
-		interest: <p class="info"><?php echo $interest; ?></p><br>
-		other mail id: <p class="info"><?php echo $other_id; ?></p>
+		</div><br><br>
+		<div id="info">
+		Gender:<p class="info"><?php echo $gender; ?></p><br>
+		Industry :<p class="info"><?php echo $industry; ?></p><br>
+		Occupation:<p class="info"><?php echo $occupation; ?></p><br>
+		Location: <p class="info"><?php echo $location; ?></p><br>
+		Few lines about you: <p class="info"><?php echo $abt_me; ?></p><br>
+		Interest: <p class="info"><?php echo $interest; ?></p><br>
+		Other mail id: <p class="info"><?php echo $other_id; ?></p>
+		</div>
 	</div>
 </div>
 </body>

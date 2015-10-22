@@ -34,7 +34,7 @@
 </head>
 <body>
 <div id="header">
-		<p style="display:inline; font-size:60px; color:#fff; text-decoration:bold; margin-left:30px; font-family:Broadway;">
+		<p style="display:inline; font-size:60px; color:#03a9f4; text-decoration:bold; margin-left:30px; font-family:Broadway;">
 		Blogger - New Blog</p>
 		<img src="<?php echo $_SESSION['imgsrc'];?>" class="header_img">
 		<a href="dashboard.php"><p style="float:right; margin-right:20px; display:inline; font-size:30px; color:black;">
@@ -46,15 +46,14 @@
 	</div>
 	<div id="content">
 		<a href="dashboard.php"><button style="float:right; margin-right:150px;">Cancel</button></a>
-		<h2>Blog List - <span>Create a new Blog</span></h2>
+		<h2>Blog List - <span >Create a new Blog</span></h2>
 		<form method="post" action="blogsinsert.php">
 		Title : <input type="text" name="title"><br><br>
-		Address : <input type="text" name="address" placeholder="myexample.blogspot.com"><br><br>
 		<select name="privacy">
 			<option>public</option>
 			<option>private</option>
 		</select><br><br>
-		<button>Create Blog!</button>
+		<button style="width:200px;">Create Blog!</button>
 		</form>
 		
 	</div>

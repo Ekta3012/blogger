@@ -9,6 +9,7 @@
 	$abt_me=$_POST['abtme'];
 	$interests=$_POST['interest'];
 	$other_id=$_POST['o_email'];
+	$userid=$_SESSION['userid'];
 	//$sql="ALTER TABLE profileinfo ";
 	//profile image upload
 	$target_dir = "uploads/";
@@ -34,12 +35,13 @@
 		    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
 		    $uploadOk = 0;
 		}
-	$sql="INSERT INTO profileinfo (email,industry,occupation,location,about_me,interest,other_id,profile_img) VALUES ('$email','$industry','$occupation','$location','$abt_me','$interests','$other_id','$target_file')";
+
+	$sql="INSERT INTO profileinfo (user_id,email,industry,occupation,location,about_me,interest,other_id,profile_img) VALUES ('$userid','$email','$industry','$occupation','$location','$abt_me','$interests','$other_id','$target_file')";
 	//var_dump($sql);
 	$query=mysqli_query($conn,$sql);
 
 		if(!$query){
-			echo "<script>alert('Unable to upload profile information');</script>";
+			echo "<script>alert('Unable to upload profile information'); location.href='logged.php';</script>";
 		}
 		else{
 		header("location:profileview.php");

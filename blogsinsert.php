@@ -24,10 +24,11 @@
 <body>
 	<?php
 		require 'connect.php'; 
-		$title=$_POST['title'];
-		$address=$_POST['address'];
+		date_default_timezone_set("Asia/Calcutta");
+		$title=mysqli_real_escape_string($conn,$_POST['title']);
 		$username=$_SESSION['user_name'];
 		$_SESSION['blogtitle']=$title;
+		$userid=$_SESSION['userid'];
 		$privacy=$_POST['privacy'];
 		if($privacy=="private"){
 			$privacy=1;
@@ -36,7 +37,9 @@
 			$privacy=0;
 		}
 		$dateofblog=date('Y-m-d');
-		$sql="INSERT INTO bloginfo (blogtitle,address,username,d_o_blog,flag) VALUES ('$title','$address','$username','$dateofblog','$privacy')";
+		$monthofblog=date('m');
+		$time=date('h:i:sa');
+		$sql="INSERT INTO bloginfo (user_id,blogtitle,username,d_o_blog,flag,time,m_o_blog) VALUES ('$userid','$title','$username','$dateofblog','$privacy','$time','$monthofblog')";
 		$query=mysqli_query($conn,$sql);
 		if(!$query){
 			echo "failed";
@@ -45,22 +48,8 @@
 		//	echo "sucessfull";
 			header('location:dashboard.php');
 		}
+		
 	?>
-	<!--<div id="header">
-		Blogger 
-		<a href="createpost.php"><button>Create post</button></a>
-		<a href="viewpost.php"><button>View post</button> 
-		<a href="dashboard.php"></a><button>View Blog</button></a>
-	</div>
-	<header>
-		My Blogs <?php// echo $_SESSION['blogs']; ?>
-	</header>
-	<div id="sideleft">
-		<button>New Post</button><br>
-		Overview<br>
-		Posts<br>
-		Pages<br>
-		Settings<br>
-	</div-->
+	
 	</body>
 </html>

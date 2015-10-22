@@ -27,7 +27,7 @@
 </head>
 <body>
 <div id="header">
-		<p style="display:inline; font-size:60px; color:#fff; text-decoration:bold; margin-left:30px; font-family:Broadway;">
+		<p style="display:inline; font-size:60px; color:#03a9f4; text-decoration:bold; margin-left:30px; font-family:Broadway;">
 		Blogger - New Post</p>
 		<img src="<?php echo $_SESSION['imgsrc'];?>" class="header_img">
 		<a href="dashboard.php"><p style="float:right; margin-right:20px; display:inline; font-size:30px; color:black;">
@@ -35,7 +35,7 @@
 			echo $_SESSION['user_name'];
 		?></p></a>
 		<a href="home.php">
-		<p style="float:right; margin-right:50px; font-size:30px; color:black;">Home</p></a>
+		<p style="float:right; margin-right:50px; font-size:30px; color:black;"><img src="home.png" width="50px" height="40px"></p></a>
 		<a href="logout.php">
 		<p style="float:right; margin-right:50px; font-size:30px; color:black;">Log out</p></a>
 </div>
@@ -43,29 +43,14 @@
 	<?php 
 		require 'connect.php';
 		$blogtitle=$_POST['b_title'];
-		/*$result=mysqli_query($conn,$sql);
-		if(!$result){
-			echo "failed";
-		}
-		else {
-			echo "sucessful";
-		}
-		$mysql_run=mysqli_query($conn,$sql);
-		if(mysqli_num_rows($mysql_run)>0){
-			while($sql_row=mysqli_fetch_assoc($mysql_run)){
-				$blogtitle=$sql_row['blogtitle'];
-				echo $blogtitle;
-			}
-		}*/
-		?>
+	?>
 		<a href="dashboard.php">
-		<button class="post" style="font-size: 17px; float:right; margin-top:25px;background-color:#F08080; width:150px; height:40px; text-decoration:bold; color:#B22222; line-height:20px;">Close</button>
-		<button style="margin-right: 50px; font-size: 17px; float:right; margin-top:25px; width:150px; height:40px;">Save</button> 
+		<button class="post" style="float:right; margin-top:25px; text-decoration:bold; margin-right:200px; line-height:20px;">Close</button>
 		</a>
 	<form method="post" action="postinsert.php">
 		<!--Blogtitle : <input type="text" name="blogtitle" placeholder="Blog title">-->
 		<p><font color="blue"><?php echo $blogtitle;?>.</font> Post <input type="text" placeholder="Post title" name="posttitle">
-		<button style="font-size:17px; margin-left:100px; width:100px; height:30px;" name="b_title" value="<?php echo $blogtitle;?>">Publish</button></p><br><br>
+		<button style="font-size:17px; margin-left:100px; width:100px; height:30px; " name="b_title" value="<?php echo $blogtitle;?>">Publish</button></p><br><br>
 		<textarea rows="10" cols="50" name="post"></textarea>
 	</form>
 	<br><br>

@@ -19,7 +19,7 @@
 		margin-top: 50px;
 		float: right;
 		height: 450px;
-		background-color: #FFB6C1;
+		background-color: #FFF0F5;
 		opacity: 0.7;
 		width: 500px;
 		padding: 20px;
@@ -32,17 +32,13 @@
 		text-decoration: bold;
 		font-family: Arial;
 		font-size: 25px;
+		border-radius: 3px;
+		padding: 5px;
 	}
 	form{
 		margin-top: 50px;
 	}
-	#header{
-		height: 100px;
-		background-color: #00CED1;
-		line-height: 100px;
-		opacity: 0.8;
-		text-align: center;
-	}
+	
 	span{
 		font-size: 15px;
 		color: red;
@@ -52,7 +48,9 @@
 </head>
 <body>
 <div id="header">
-	<p style="display:inline; font-size:60px; color:#fff; text-decoration:bold; margin-left:30px; font-family:Broadway;">Blogger</p>
+	<p style="display:inline; font-size:60px; color:#03a9f4; text-decoration:bold; margin-left:30px; font-family:Broadway;">Blogger - Sign Up</p>
+	<a href="home.php">
+		<p style="float:right; margin-right:50px; font-size:30px; color:black;"><img src="home.png" width="50px" height="50px"></p></a>
 </div>
 <div id="content">
 	<header>Sign Up</header>

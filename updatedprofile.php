@@ -2,7 +2,7 @@
 	session_start();
 	require 'connect.php';
 	$target_dir = "uploads/";
-	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+	$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	// Check if image file is a actual image or fake image
@@ -41,8 +41,9 @@
 	$abt_me=$_POST['abtme'];
 	$interests=$_POST['interest'];
 	$other_id=$_POST['o_email'];
-	$profileimg=$target_file;
-	$sql="UPDATE profileinfo SET industry='$industry', occupation='$occupation' ,location='$location' ,about_me='$abt_me' ,interest='$interests',other_id='$other_id' WHERE email='$email'";
+	$gender=$_POST['gender'];
+	$userid=$_SESSION['userid'];
+	$sql="UPDATE profileinfo SET user_id='$userid',profile_img='$target_file',industry='$industry',gender='$gender', occupation='$occupation' ,location='$location' ,about_me='$abt_me' ,interest='$interests',other_id='$other_id' WHERE email='$email'";
 	$result=mysqli_query($conn,$sql);
 	if(!$result){
 		echo "failed";
