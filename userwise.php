@@ -55,6 +55,15 @@
 	require 'connect.php';
 	echo '<div id="blogs">';
 	$person=$_POST['person'];
+	$array=array();
+	$s_ql="SELECT * FROM forminfo WHERE username LIKE '%{$person}%'";
+	$q_uery=mysqli_query($conn,$s_ql);
+	if(mysqli_num_rows($q_uery)>0){
+		while($row=mysqli_fetch_assoc($q_uery)){
+			$array[]=$row['username'];
+		}
+		echo json_encode($array);
+	}
 	$sql="SELECT * FROM bloginfo";
 	$query=mysqli_query($conn,$sql);
 	if(mysqli_num_rows($query)>0)

@@ -55,7 +55,13 @@
 	</style>
 	<script type="text/javascript "src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 	<script type="text/javascript">
-		
+		$(document).ready(function(){
+			$('input.person').typeahead({
+				name:'person',
+				remote:'userwise.php?key=%QUERY'.
+				limit:10
+			});
+		});
 	</script>
 </head>
 <body>
@@ -120,26 +126,27 @@
 					$time=$sql_row['time'];
 					if($flag==0)
 					{
-						//echo'username:'.$username.'<br>'.'blogtitle:'.$blogtitle.'<br>';
 						echo'<p style="font-size:25px; margin-left:100px; display:inline; margin-top:10px;">'.$blogtitle.'</p><p style="font-size:15px; margin-left:50px; display:inline;">'.$username.'&nbsp &nbsp'.$time.'&nbsp &nbsp'.$dob.'</p><br>';
-						
 						$sqli="SELECT * FROM follow WHERE follower='$u_name'";
 						$run=mysqli_query($conn,$sqli);
 						if(mysqli_num_rows($run)>0){
 							while ($row=mysqli_fetch_assoc($run)) {
 									$id=$row['blog_id'];
-							if($id==$blogid){
-									echo '<form method="post" action="followinsert.php" style="display:inline;">
+									if($id==$blogid){
+									/*echo '<form method="post" action="followinsert.php" style="display:inline;">
 										<button value="'.$blogid.'" name="id5" style="width:100px; height:30px; line-height:20px; font-size:20px; margin-right:20px; float:right;">unfollow</button></form><br>';
+									*/ $f_follow=1;
 									
 								}
-								/*else{
-									echo '<form method="post" action="followinsert.php" style="display:inline;">
+								else{ $f_follow=0;
+									/*echo '<form method="post" action="followinsert.php" style="display:inline;">
 										<button value="'.$blogid.'" name="id5" style="width:100px; height:30px; line-height:20px; font-size:20px; margin-left:70px;">follow</button></form></div>';
-									}*/
-						
+									*/}
+								echo '<form method="post" action="followinsert.php" style="display:inline;">
+										<button value="'.$blogid.'" name="id5" id="follow" style="width:100px; height:30px; line-height:20px; font-size:20px; margin-left:70px;">follow</button></form>';
 								}
-							}						
+
+							}
 						$mysql="SELECT * FROM postinfo";
 						$myquery=mysqli_query($conn,$mysql);
 						if(!$myquery){
@@ -161,26 +168,27 @@
 									$time=$mysql_row['time'];	
 									$postid=$mysql_row['post_id'];									
 									echo'<p class="posts" style="color:blue;">'. $posttitle.'&nbsp &nbsp <font size="3px">'.$dateofpost.'&nbsp &nbsp'.$time.'</font><br><br>'.$post.'</p>';
-									echo $postid;
+									//echo $postid;
 									if(isset($_SESSION['user_name']))
 									{
-										
 										echo'<form method="post" action="likecommentinsert.php" style="display:inline;">
 											<button name="likes" value="'.$postid.'" style="margin-left:100px; width:90px; height:30px; line-height:20px; font-size:20px;">
 											Like</button>';
-											$sql2="SELECT * FROM postlikes";
+											$sql2="SELECT * FROM postlikes WHERE blog_id='$blogid'";
 											$query2=mysqli_query($conn,$sql2);
 											if(mysqli_num_rows($query2)>0){
-											while($sql2_row=mysqli_fetch_assoc($query2)){
+												$count=0;
+												while($sql2_row=mysqli_fetch_assoc($query2)){
 												@$p_id=$sql2_row['post_id'];
-																					
+
 												if($p_id == $postid)
 												{												
 													@$numoflikes=$sql2_row['n_o_likes'];
-													echo '&nbsp &nbsp'.$numoflikes.'likes';
+													$count+=COUNT($numoflikes);
+
 												}
-																
-											}
+
+											}echo '&nbsp &nbsp'.$count.'likes';
 										}											
 											echo'<div class="comment">
 												<textarea placeholder="Enter your comment...." rows="5" cols="50" id="'.$posttitle.'" name="comment">
@@ -188,9 +196,6 @@
 												<button value="'.$posttitle.'" name="id2" style="width:100px; height:30px; line-height:20px; font-size:20px; margin-left:250px;">Comment</button>
 												</div>
 												</form>';
-										
-									//}
-										
 								$sql1="SELECT * FROM comment";
 								$query1=mysqli_query($conn,$sql1);
 								if(mysqli_num_rows($query1)>0)
@@ -226,6 +231,13 @@
 			
 		?>
 	</div>
-	
+	<script>
+		if(<?php echo $f_follow;?> == 1){
+			var flag="unfollow";
+		}
+		else{
+			var flag="follow";
+		}
+		document.getElementById('follow').innerHTML=flag;</script>
 </body>
 </html>

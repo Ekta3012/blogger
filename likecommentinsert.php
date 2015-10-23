@@ -42,30 +42,27 @@
 			}
 		}
 		$likes=$_POST['likes'];
-		/*$sql="SELECT * FROM postinfo";
+		$sql="SELECT * FROM postinfo WHERE post_id='$likes'";
 		$query=mysqli_query($conn,$sql);
 		if(mysqli_num_rows($query)>0)
 		{
 			while($sql_row=mysqli_fetch_assoc($query))
 			{
-				$postid=$sql_row['post_id'];
-				if($postid==$likes)
-				{*/
-					$userid=$_SESSION['userid'];
-					$sql1="INSERT INTO postlikes (post_id,user_id,n_o_likes) VALUES ('$likes','$userid','1')";
-							$query=mysqli_query($conn,$sql1);
-							if(!$query){
-								echo "<script>alert('sorry! you are not allowed');
-								location.href='blogs.php';</script>";
-							}
-							else{
-								header('location:blogs.php');
-							}
-						
-					
-					
-				//}
-			//}
+				$blogid=$sql_row['blog_id'];
+				//if($postid==$likes)
+				//{
+				$userid=$_SESSION['userid'];
+				$sql1="INSERT INTO postlikes (blog_id,post_id,user_id,n_o_likes) VALUES ('$blogid','$likes','$userid','1')";
+				$query=mysqli_query($conn,$sql1);
+				if(!$query){
+					echo "<script>alert('sorry! you are not allowed');
+					location.href='blogs.php';</script>";
+				}
+				else{
+					header('location:blogs.php');
+				}
+			}
+		}
 		//}
 		
 ?>
